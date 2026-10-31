@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+/* ============================================================
+   PeçaPronta — sistema de design
+   Identidade: azul (navy/deep-blue) + preto (charcoal/ink) +
+   vermelho de conversão, com neutros claros para respiro.
+   ============================================================ */
+
+@theme {
+  /* --- Paleta de marca (utilitários diretos: bg-navy, text-red, ...) --- */
+  --color-navy: #0b1f33;
+  --color-navy-800: #0e2a45;
+  --color-deep-blue: #123b5d;
+  --color-charcoal: #111418;
+  --color-ink: #080a0d;
+  --color-red: #d7282f;
+  --color-red-dark: #a91e24;
+  --color-bg-soft: #f5f7f9;
+  --color-line: #d9dee5;
+
+  /* --- Tokens semânticos (estilo shadcn) --- */
+  --color-background: #ffffff;
+  --color-foreground: #111418;
+  --color-card: #ffffff;
+  --color-card-foreground: #111418;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #111418;
+  --color-primary: #0b1f33;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f5f7f9;
+  --color-secondary-foreground: #0b1f33;
+  --color-muted: #f5f7f9;
+  --color-muted-foreground: #667085;
+  --color-border: #d9dee5;
+  --color-input: #d9dee5;
+  --color-ring: #123b5d;
+
+  /* --- Raio controlado / industrial (sem cantos exagerados) --- */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+
+  /* --- Tipografia (variáveis vindas do next/font) --- */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-tech), ui-monospace, monospace;
+}
+
+/* Base clara controlada — sem toggle de tema (fora do escopo do MVP) */
+:root {
+  color-scheme: light;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-red) 22%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ------------------------------------------------------------
+   Padrões decorativos (grid "blueprint") — leves, via CSS
+   ------------------------------------------------------------ */
+.bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-line) 60%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-line) 60%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+}
+.bg-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ------------------------------------------------------------
+   Animações de diálogo/drawer (Radix data-state) — sutis
+   ------------------------------------------------------------ */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes content-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes content-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes drawer-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.dlg-overlay[data-state="open"] {
+  animation: overlay-in 0.18s ease;
+}
+.dlg-overlay[data-state="closed"] {
+  animation: overlay-out 0.15s ease;
+}
+.dlg-content[data-state="open"] {
+  animation: content-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dlg-content[data-state="closed"] {
+  animation: content-out 0.15s ease;
+}
+.drawer-content[data-state="open"] {
+  animation: drawer-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.drawer-content[data-state="closed"] {
+  animation: drawer-out 0.18s ease;
+}
+.toast-item {
+  animation: toast-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Acordeão (Radix) — altura animada */
+@keyframes acc-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes acc-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+.acc-content[data-state="open"] {
+  animation: acc-down 0.22s ease;
+}
+.acc-content[data-state="closed"] {
+  animation: acc-up 0.2s ease;
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,81 @@
+import type { EtapaProducao, Projeto } from "@/types";
+
+/** Projetos do painel demonstrativo do marceneiro — dados simulados. */
+export const PROJETOS: Projeto[] = [
+  {
+    id: "PRJ-1042",
+    nome: "Cozinha planejada — Ap. 72",
+    tipoMovel: "Cozinha planejada",
+    status: "em-producao",
+    criadoEm: "2026-06-28",
+    cidade: "São Paulo, SP",
+    materiais: ["MDF", "MDF Ultra"],
+    parceiro: "Corte Norte Demonstração",
+    prazoEntrega: "2026-07-18",
+    valor: 4380,
+  },
+  {
+    id: "PRJ-1041",
+    nome: "Guarda-roupa de casal — Suíte",
+    tipoMovel: "Guarda-roupa de casal",
+    status: "propostas-recebidas",
+    criadoEm: "2026-07-02",
+    cidade: "São Paulo, SP",
+    materiais: ["MDF", "Melamínico"],
+    propostas: 4,
+  },
+  {
+    id: "PRJ-1040",
+    nome: "Painel de sala com ripado",
+    tipoMovel: "Painel de sala",
+    status: "aguardando-propostas",
+    criadoEm: "2026-07-06",
+    cidade: "Guarulhos, SP",
+    materiais: ["MDF"],
+    propostas: 1,
+  },
+  {
+    id: "PRJ-1039",
+    nome: "Escritório residencial — Home office",
+    tipoMovel: "Escritório residencial",
+    status: "aprovado",
+    criadoEm: "2026-06-20",
+    cidade: "São Paulo, SP",
+    materiais: ["MDF", "MDP"],
+    parceiro: "Centro Alfa Mock",
+    prazoEntrega: "2026-07-15",
+    valor: 2760,
+  },
+  {
+    id: "PRJ-1037",
+    nome: "Armário comercial — Loja Centro",
+    tipoMovel: "Armário comercial",
+    status: "em-transporte",
+    criadoEm: "2026-06-10",
+    cidade: "Osasco, SP",
+    materiais: ["MDP", "Melamínico"],
+    parceiro: "Linha Certa Demonstração",
+    prazoEntrega: "2026-07-12",
+    valor: 5210,
+  },
+  {
+    id: "PRJ-1045",
+    nome: "Balcão de atendimento — Clínica",
+    tipoMovel: "Balcão de atendimento",
+    status: "rascunho",
+    criadoEm: "2026-07-09",
+    cidade: "São Paulo, SP",
+    materiais: ["MDF"],
+  },
+];
+
+/** Linha do tempo de produção do projeto em destaque (demonstrativa). */
+export const ETAPAS_PRODUCAO_EXEMPLO: EtapaProducao[] = [
+  { nome: "Aprovado", status: "concluida", data: "2026-07-01" },
+  { nome: "Plano de corte", status: "concluida", data: "2026-07-03" },
+  { nome: "Em produção", status: "atual", data: "2026-07-10" },
+  { nome: "Acabamento", status: "pendente" },
+  { nome: "Separação", status: "pendente" },
+  { nome: "Em transporte", status: "pendente" },
+  { nome: "Entregue", status: "pendente" },
+];
